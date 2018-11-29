@@ -5,7 +5,7 @@ from hashutils import make_pw_hash, check_pw_hash
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://blogz:password@localhost:3306/blogz'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://blogz:password@localhost:8889/blogz'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 
@@ -22,12 +22,12 @@ class Blog(db.Model):
         self.title = title
         self.body = body
         self.owner = owner
-        if pub_date is None
+        if pub_date is None:
             pub_date = datetime.utcnow()
         self.pub_date = pub_date
 
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True
+    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(120), unique=True)
     pw_hash = db.Column(db.String(120))
     blogs = db.relationship('Blog', backref='owner')
