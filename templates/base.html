@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <!-- STYLESHEETS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/bootstrap.min.css') }}">
+    
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <nav class="header">
+
+        <h1><a href="/">Blogz!</a></h1>
+        <a href="/blog" class="left spacing">View All Posts</a>
+        <a href="/newpost"><i class="fa fa-pencil" aria-hidden="true"></i> New Post</a>
+        <a href="/logout" class="right"><i class="fa fa-sign-out"></i> Logout</a>
+        <a href="/login" class="right spacing"><i class="fa fa-sign-in"></i> Login</a>
+
+      </nav>
+      {% block content %}
+      {% endblock %}
+    </div>
+
+  </body>
+
+</html>
