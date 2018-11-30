@@ -2,55 +2,36 @@
 <html>
     <head>
         <title>{{title}}</title>
-    <style>
-            body {
-                margin: 0 auto;
-                font-family:'Arial', 'Arial Narrow', Arial, sans-serif;
-                padding: 1em 1em;
-                color: rgb(11, 22, 22);
-                background-color: rgb(252, 252, 253);
-                margin-left: 1%;
-                font-size: 1.15em;  
-                }
-            h1 {
-                margin: 0 auto;
-                margin: .5em;
-            }
-            nav ul li {
-                display: inline-block;
-            } 
-            .log {
-                float: right;
-            }
-            li {
-                margin: .5em;
-            }
-            li a {
-                color: rgb(210, 250, 227);
-            }
-            li a:visited {
-                color: rgb(64, 99, 146);
-            }
-            p {
-                display: block;
-            }
-            ul {
-                list-style: none;
+        
+        <link rel="stylesheet" type="text/css" href="/static/normalize.css">
+        <link rel="stylesheet" type="text/css" href="/static/styles.css">
+        <style>
+            .error{
+            color:red;
             }
         </style>
     </head>
+
 <body>
-    <nav>
-        <ul>
-            <li><a href='/'>home</a></li>
-            <li><a href='/blog'>all posts</a></li>
-            <li><a href='/newpost'>new post</a></li>
-            <li class="log"><a href='/logout'>log out</a></li>
-            <li class="log"><a href='/login'>log in</a></li>
-        </ul>
-    </nav> 
+  <nav>
+    
+
+    <ul>
+      <li><a href="/">Main Blog</a></li>
+      <li><a href="/blog">All Posts</a></li>
+      <li><a href="/newpost">New Blog Post</a></li>
+    </ul>
+
+    <ul id = "user-account">
+      <li><a href="/login">Login</a></li>
+      <li><a href="/logout">Logout</a></li>
+
+    </ul>
+
+  </nav>
+
     {% block content %}
     {% endblock %}
 
 </body>
-</html> 
+</html>
