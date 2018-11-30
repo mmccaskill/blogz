@@ -1,5 +1,6 @@
-from flask import Flask, request, redirect, render_template, session
+from flask import Flask, request, redirect, render_template, session, flash
 from flask_sqlalchemy import SQLAlchemy
+from flask import url_for
 from datetime import datetime
 from hashutils import make_pw_hash, check_pw_hash
 
@@ -9,7 +10,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://blogz:password@localhos
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 
-app.secret_key = 'y337kGcys&zP3B'
+app.secret_key = 'zdkw42F41Gcw5T16'
 
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -123,7 +124,7 @@ def blog():
         return render_template("post.html", title=post.title, body=post.body, user=post.owner.username, pub_date=post.pub_date, user_id=post.owner_id)
     if user_id:
         entries = Blog.query.filter_by(owner_id=user_id).all()
-        return render_template('user.html', entries=entries)
+        return render_template('singleUser.html', entries=entries)
     return render_template('blog.html', posts=posts)
 
 @app.route('/newpost')
