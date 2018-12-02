@@ -1,5 +1,5 @@
 body {
-    font-family: sans-serif;
+    font-family: 'Times New Roman', Times, serif;
     width: 800px;
     margin: 0 auto;
     padding: 10px;
@@ -11,13 +11,13 @@ body {
 
 label {
     display: block;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 input[type=text],
 input[type=password] {
     width: 400px;
-    font-size: 20px;
+    font-size: 25px;    
     padding: 2px;
 }
 

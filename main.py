@@ -81,7 +81,7 @@ def signup():
 
         if username == "":
             username_error = "Please enter a username."
-        elif len(username) <= 3 or len(username) > 20:
+        elif len(username) < 3 or len(username) > 20:
             username_error = "Username must be between 3 and 20 characters long."
         elif " " in username:
             username_error = "Username cannot contain any spaces."
@@ -96,7 +96,7 @@ def signup():
         if exist:
             username_error = "Username already taken."
 
-        if len(username) > 3 and len(password) > 3 and password == verify and not exist:
+        if len(username) > 2 and len(password) > 3 and password == verify and not exist:
             new_user = User(username, password)
             db.session.add(new_user)
             db.session.commit()
@@ -127,37 +127,35 @@ def blog():
         return render_template('singleUser.html', entries=entries)
     return render_template('blog.html', posts=posts)
 
-@app.route('/newpost')
-def post():
-    return render_template('newpost.html', title="New Post")
-
 @app.route('/newpost', methods=['POST', 'GET'])
-def newpost():
-    title = request.form['title']
-    body = request.form["body"]
-    owner = User.query.filter_by(username=session['username']).first()
+def new_post():
+    if request.method == 'GET':
+        return render_template('newpost.html')
 
-    title_error = ""
-    body_error = ""
+    if request.method == 'POST':
+        title_entry = request.form['title']
+        body_entry = request.form['body']
 
-    if title == "":
-        title_error = "Title required."
-    if body == "":
-        body_error = "Content required."
+        title_error = ''
+        body_error = ''
 
-    if not title_error and not body_error:
-        new_post = Blog(title, body, owner)
-        db.session.add(new_post)
-        db.session.commit()
-        page_id = new_post.id
-        return redirect("/blog?id={0}".format(page_id))
-    else:
-        return render_template("newpost.html",
-            title = title,
-            body = body,
-            title_error = title_error,
-            body_error = body_error
-        )
+        if len(title_entry) == 0:
+            title_error = "You Need A Title"
+        if len(body_entry) == 0:
+            body_error = "Content Needed"
+
+        if title_error or body_error:
+            return render_template('newpost.html', title_error=title_error,
+                                   body_error=body_error, title=title_entry, body=body_entry)
+
+        else:
+            if len(title_entry) and len(body_entry) > 0:
+                owner = User.query.filter_by(username=session['username']).first()
+                new_entry = Blog(title_entry, body_entry, owner)
+                db.session.add(new_entry)
+                db.session.commit()
+                return redirect("/blog?id=" + str(new_entry.id))
+
 
 @app.route('/logout')
 def logout():
